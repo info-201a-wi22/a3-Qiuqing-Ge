@@ -1,0 +1,71 @@
+---
+title: "Analysis"
+author: "Qiuiqing Ge"
+date: "2/24/2022"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Introduction
+``` {r, echo = FALSE, message = FALSE, warning = FALSE}
+source("../source/analysis.R")
+```
+
+The reason for the report was to tackle the problem of racism. According to the news, racism affects the prison population, so I decided to investigate the prison population to see what the reality is.
+
+I want to mention again that this file mainly focus about **the rate of people of color in jail** which only including AAPI, Black, Latinx, Native American race and **the rate of white people in the jail** is mentioned in this report as well.There are also several graphs to compared the relationship between these two variables: `the rate of people of color in jail` and `the rate of white people in the jail`.
+
+As for the data frame I made, it is from **`r early_year`** to **`r recent_year`**. By analyzing this data frame I found that the highest color rate is **`r max_color_rate`** in **`r max_color_rate_year`**. As for minimum rate of white rate is in **`r min_year_white_rate`**. According to the data found above, it seems that in the 1990s there were more people of color in prison and fewer white people in prison. This seems to indicate a relationship between the two: people of color are more likely to be imprisoned as a result of racial discrimination. _**But is this the case?**_
+
+Below is a **chart of the people of color jailing**. Throughout the years the trend over time.
+```{r, echo=FALSE, message=FALSE}
+plot(time_trends_color_rate)
+```
+
+###### Reminder: The rates of color of people are already multipied by 100, which are stands for percentages.
+This graph shows the percentage of people of color in prison (calculated by dividing the number of people of color in prison by the total number of people of color, and already in percentage form). This graph shows the year-to-year trend in the percentage of people of color in prison. We can see that this ratio peaked in the late 1990s, but the overall trend is downward.
+
+Below is also **a chart displaying the rate of white jailing race**, through years and times
+```{r, echo=FALSE, message=FALSE}
+plot(time_trends_white_rate)
+```
+
+###### Reminder: The rates of color of people are already multipied by 100, which are stands for percentages.
+This graph shows the proportion of white people in prison (calculated by dividing the number of white people in prison by the total number of white people, and already in percentage form). This graph shows the year-to-year trend in the proportion of white people in prison. We can see that this rate has increased year by year but has remained roughly the same since 2010.
+
+The above two figures all represent the change trend of a variable year by year, but cannot represent the relationship between the two variables. 
+
+The following diagram can clearly shows **the relationship between the two variables**
+```{r, echo=FALSE, message=FALSE}
+plot(p_chart)
+```
+
+###### Reminder: The rates of color of people are already multipied by 100, which are stands for percentages.
+This figure clearly shows the relationship between the two variables. By comparison, it can be found that the rate of people of color entering prison is higher than that of white people every year, but the difference between the two rates is decreasing year by year. In other words, the impact of racial discrimination on justice is decreasing.
+
+Here is also a graph just talking about the relationship between two variables.
+```{r, echo=FALSE, message=FALSE}
+plot(p_relationship)
+```
+
+###### Reminder: The rates of color of people are already multipied by 100, which are stands for percentages.
+This chart illustrates the relationship between the two variables. It can be found that when the rate of colored people in prison is lower than 0.65%, the rate of white people in prison does not fluctuate greatly, but when the rate of colored people in prison is higher than 0.65%, the rate of white people in prison decreases rapidly. From the above data, it can be concluded that racial discrimination does affect the number of people going to prison, but it also improves or does not. Because if racial discrimination continues to affect the prison population, then this graph shows that white people are in prison at a very low rate and people of color at a very high rate.
+
+Below is a map of the United States showing the color of people‘s jail population in every state. 
+```{r, echo=FALSE, message=FALSE, warning = FALSE}
+plot(p_map)
+```
+This map just gives people a more intuitive picture of the rate of people of color going to prison. According to the map, it can be seen that **most** of the states have **less than 0.005** colored people in prison, and only a **small number** of districts have **more than 0.015** colored people in prison. I want people to have a more intuitive experience with this data.
+
+
+### Summary
+After studying the data, these images actually surprised me, and I thought the rate of this colored person going to prison would be very high because of the influence of racial discrimination. But in fact, the effect is not very big, in other words, the effect of racial discrimination is actually there, but people are gradually reducing the prejudice.
+
+
+### **limitaion** for this data
+- The data provided by this assignment lacks the data of the total population of some races, such as: total population of black people, total population of Latinx, people, total population of native American people, total population of aapi people and total population of white. Specifically, since this data only includes the total number of individuals of each of the six ethnic groups aged 15-64, the number given is only the number of individuals of each of the six ethnic groups, so it is not accurate to calculate the percentage of individuals in prison in this case. This data manifests that youth under age 15 and adults over 64 are age groups at very low risk of jail incarceration and because the proportion of these groups varies greatly by county.
+- The second the limitation of this file is that the color of people I explored is only AAPI, Black, Latinx, Native American race. Because this data frame lacks the total data of other race in total(even no data about the other race aged from 15-64), it is impossible to calcuate the rate by using `other race in jail` dividing by `other race in total` in order to get the rate.
