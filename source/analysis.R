@@ -1,8 +1,6 @@
 library("dplyr")
 library("ggplot2")
 library("tidyverse")
-library("plotly")
-library("leaflet")
 #install.packages('maps')
 library(maps)
 #install.packages('openintro')
@@ -46,10 +44,12 @@ time_trends_df <- incarceration_trends %>%
            round(total_white_jail_pop / total_white_pop_15to64, 4) * 100) %>%
   filter_all(all_vars(is.finite(.)))
 
+# select eight years to represents other data
 time_trends_df_p <- time_trends_df %>%
   filter(year == "1990" | year == "1994" | year == "1998" | year == "2002" | year == "2006"
          | year == "2010" | year == "2014" | year == "2018")
 
+#Draw the graph about the rate of people of color in jail changed by year
 time_trends_color_rate <- ggplot(data = time_trends_df_p) +
   geom_col(mapping = aes(x = year, y = color_rate_jail, fill = year))  +
   scale_fill_continuous(low = "#B0C4DE", high = "#6E7B8B") +
@@ -61,6 +61,7 @@ time_trends_color_rate <- ggplot(data = time_trends_df_p) +
   )
 time_trends_color_rate
 
+#Draw the graph about the rate of white people in jail changed by year
 time_trends_white_rate <- ggplot(data = time_trends_df_p) +
   geom_col(mapping = aes(x = year, y = total_white_jail_pop, fill = year))  +
   scale_fill_continuous(low = "#87CEFA", high = "#607B8B") +
