@@ -58,7 +58,7 @@ The reason why I am **interested** in this plot is that I can analyze the relati
 I also have a plot to talk about the relationship between the state and the people of color in different states. In this plot, I just **distract top 10 states** which has the compared higher `rate of people of color in state to talk about` with rest of states.
 
 ```{r, echo=FALSE, message=FALSE}
-plot(state_df_plot_top_10)
+plot(state_chart_top_10)
 ```
 
 The reason why I am so **curious** about this chart is that I want to know which state are most influence by the effect about the racial discrimination. In other words, I want to know the states have what kind of characteristic will influenced by the racial discrimination.

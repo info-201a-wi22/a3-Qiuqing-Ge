@@ -4,8 +4,6 @@ library("tidyverse")
 library(maps)
 library("openintro")
 library("mapproj")
-library("lintr")
-lint("analysis.R")
 
 setwd("~/Documents/_Code/a3-Qiuqing-Ge/source")
 
@@ -16,7 +14,6 @@ incarceration_trends <- read.csv("../data/incarceration_trends.csv")
 
 # Make a data frame to explore the rate of color of people in jail and the rate
 # of white people in jail
-
 time_trends_df <- incarceration_trends %>%
   group_by(year) %>%
   select(year, aapi_pop_15to64, black_pop_15to64, latinx_pop_15to64,
@@ -59,7 +56,6 @@ time_trends_color_rate <- ggplot(data = time_trends_df_p) +
     x = "year",
     y = "rate of color of people in jail",
   )
-time_trends_color_rate
 
 #Draw the graph about the rate of white people in jail changed by year
 time_trends_white_rate <- ggplot(data = time_trends_df_p) +
@@ -71,9 +67,9 @@ time_trends_white_rate <- ggplot(data = time_trends_df_p) +
     x = "year",
     y = "rate of white people in jail",
   )
-time_trends_white_rate
 
-# This is graph to show two variable relationships.
+# This is graph to show two variable's relationships between "the rate of people
+# of color in jail" and "the rate of white people in jail".
 p_chart <- ggplot() +
   geom_line(data = time_trends_df, aes(x = year, y = color_rate_jail,
                     colour = "the rate of people of color in jail"), size = 1) +
@@ -85,8 +81,19 @@ p_chart <- ggplot() +
   xlab("Year") + ylab("rate") +
   theme(text = element_text(size = 13, family = "Comic Sans MS")) +
   ggtitle("The relationsip between color of people and white people in jail")
-p_chart
 
+# This is the scatter plot to find the relationship between the rate of people
+# of color in jail and the rate of white people in jail
+p_relationship <- ggplot(time_trends_df, aes(x = color_rate_jail,
+                                             y = white_rate_jail)) +
+  geom_point(colour = 4, size = 3) +
+  labs(x = "people of color rate in the jail",
+       y = "white people in the jail",
+       title = "The relationsip between two rates",
+       subtitle = "people of color rate in jail and white poeple in jail")
+
+# Subtract a new data frame about the relationship between state and 
+# "the rate of people of color"
 state_df <- incarceration_trends %>%
   group_by(state) %>%
   select(state, aapi_pop_15to64, black_pop_15to64, latinx_pop_15to64,
@@ -107,6 +114,7 @@ state_df <- incarceration_trends %>%
          total_color_jail_pop = total_aapi_jail_pop + total_black_jail_pop
          + total_latinx_jail_pop + total_native_jail_pop)
 
+# Make the data frame for top 10 states in U.S.
 state_df_plot_top_10 <- state_df %>%
   select(state, total_color_pop_15to64, total_white_pop_15to64,
          total_color_jail_pop, total_white_jail_pop) %>%
@@ -118,6 +126,8 @@ state_df_plot_top_10 <- state_df %>%
   select(state_full_name, color_rate_jail, white_rate_jail) %>%
   top_n(10, color_rate_jail)
 
+# Draw a bar chart to show the relationship between the state and "the rate of 
+# people of color in jail"
 state_chart_top_10 <- ggplot(data = state_df_plot_top_10) +
   geom_col(mapping = aes(x = reorder(state_full_name, color_rate_jail),
                          y = color_rate_jail), fill = "steelblue") +
@@ -126,18 +136,6 @@ state_chart_top_10 <- ggplot(data = state_df_plot_top_10) +
     x = "State Name",
     y = "rate of people of color in jail") +
   coord_flip()
-state_chart_top_10
-
-# This is the scatter plot to find the relationship between the rate of color
-# of people in jail and the rate of white people in jail
-p_relationship <- ggplot(time_trends_df, aes(x = color_rate_jail,
-                                             y = white_rate_jail)) +
-  geom_point(colour = 4, size = 3) +
-  labs(x = "people of color rate in the jail",
-       y = "white people in the jail",
-       title = "The relationsip between two rates",
-       subtitle = "people of color rate in jail and white poeple in jail")
-p_relationship
 
 # Make a new data frame about the rate of people of color in jail
 # spererated by state.
@@ -146,7 +144,6 @@ map_rate_df <- state_df %>%
   select(state, total_color_pop_15to64, total_color_jail_pop) %>%
   mutate(color_rate_jail =
            round(total_color_jail_pop / total_color_pop_15to64, 4))
-  
 
 # Find the data frame which the foundation to make the map
 state_shape <- map_data("state") %>%
@@ -166,6 +163,7 @@ blank_theme <- theme_bw() +
     panel.grid.minor = element_blank(),
     panel.border = element_blank()
   )
+
 # Make the map about the rate of people of color in jail(the people of color
 # only including AAPI, Black, Latinx, Native American race)
 p_map <- ggplot(state_shape) +
@@ -182,11 +180,7 @@ p_map <- ggplot(state_shape) +
   ) +
   blank_theme
 
-p_map
-
-
-# These values are written in the Rmd.
-
+# These values are written in the Rmd.xws
 max_color_rate_year <- time_trends_df %>%
   filter(color_rate_jail == max(color_rate_jail, na.rm = TRUE)) %>%
   pull(year)
