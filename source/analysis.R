@@ -5,6 +5,7 @@ library(maps)
 library("openintro")
 library("mapproj")
 
+
 setwd("~/Documents/_Code/a3-Qiuqing-Ge/source")
 
 jail_jurisdiction <-
@@ -92,7 +93,7 @@ p_relationship <- ggplot(time_trends_df, aes(x = color_rate_jail,
        title = "The relationsip between two rates",
        subtitle = "people of color rate in jail and white poeple in jail")
 
-# Subtract a new data frame about the relationship between state and 
+# Subtract a new data frame about the relationship between state and
 # "the rate of people of color"
 state_df <- incarceration_trends %>%
   group_by(state) %>%
@@ -126,7 +127,7 @@ state_df_plot_top_10 <- state_df %>%
   select(state_full_name, color_rate_jail, white_rate_jail) %>%
   top_n(10, color_rate_jail)
 
-# Draw a bar chart to show the relationship between the state and "the rate of 
+# Draw a bar chart to show the relationship between the state and "the rate of
 # people of color in jail"
 state_chart_top_10 <- ggplot(data = state_df_plot_top_10) +
   geom_col(mapping = aes(x = reorder(state_full_name, color_rate_jail),
