@@ -81,17 +81,19 @@ p_chart <- ggplot() +
                         "the rate of white people in jail" = "orange")) +
   xlab("Year") + ylab("rate") +
   theme(text = element_text(size = 13, family = "Comic Sans MS")) +
-  ggtitle("The relationsip between color of people and white people in jail")
+  ggtitle("The relationsip between the rate of color of people in jail
+          and the rate of white people in jail")
 
 # This is the scatter plot to find the relationship between the rate of people
 # of color in jail and the rate of white people in jail
 p_relationship <- ggplot(time_trends_df, aes(x = color_rate_jail,
                                              y = white_rate_jail)) +
   geom_point(colour = 4, size = 3) +
-  labs(x = "people of color rate in the jail",
-       y = "white people in the jail",
-       title = "The relationsip between two rates",
-       subtitle = "people of color rate in jail and white poeple in jail")
+  labs(x = "the rate of people of color in the jail",
+       y = "the rate of white people in the jail",
+       title = "The relationsip between two rates --",
+       subtitle = "the rate of people of color in jail and the rate of
+       white poeple in jail")
 
 # Subtract a new data frame about the relationship between state and
 # "the rate of people of color"
