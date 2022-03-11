@@ -5,7 +5,6 @@ library(maps)
 library("openintro")
 library("mapproj")
 
-
 setwd("~/Documents/_Code/a3-Qiuqing-Ge/source")
 
 jail_jurisdiction <-
